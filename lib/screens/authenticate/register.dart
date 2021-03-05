@@ -1,15 +1,15 @@
 import 'package:coffeecafebrew/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleVal;
-  SignIn({this.toggleVal});
+  Register({this.toggleVal});
 
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
 
   String email = "";
@@ -20,18 +20,17 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
-        backgroundColor: Colors.brown[400],
-        elevation: 0.0,
-        title: Center(child: Text('Sign In to Coffee Crew')),
-        actions: <Widget>[
-          FlatButton.icon(
-              onPressed: () {
-                widget.toggleVal();
-              },
-              icon: Icon(Icons.person),
-              label: Text("Register"))
-        ],
-      ),
+          backgroundColor: Colors.brown[400],
+          elevation: 0.0,
+          title: Center(child: Text('Sign Up to Coffee Crew')),
+          actions: <Widget>[
+            FlatButton.icon(
+                onPressed: () {
+                  widget.toggleVal();
+                },
+                icon: Icon(Icons.person),
+                label: Text("Signin"))
+          ]),
       body: Container(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50),
           child: Form(
@@ -49,7 +48,7 @@ class _SignInState extends State<SignIn> {
             SizedBox(height: 20),
             RaisedButton(
                 color: Colors.pink[400],
-                child: Text("Signin", style: TextStyle(color: Colors.white)),
+                child: Text("Register", style: TextStyle(color: Colors.white)),
                 onPressed: () async {
                   print(email + ":" + password);
                 })
