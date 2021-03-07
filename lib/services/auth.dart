@@ -1,3 +1,4 @@
+import 'package:coffeecafebrew/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:coffeecafebrew/models/user.dart';
@@ -22,7 +23,32 @@ class AuthService {
     try {
       UserCredential result = await _auth.signInAnonymously();
       User user = result.user;
+      return _userFromFirebase(user);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 
+  Future registerWithEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      User user = result.user;
+      await DatabaseService(uid: user.uid)
+          .updateUserData("0", "New Member", 100);
+      return _userFromFirebase(user);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+
+  Future signinWithEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      User user = result.user;
       return _userFromFirebase(user);
     } catch (e) {
       print(e.toString());
